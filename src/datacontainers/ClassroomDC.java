@@ -4,20 +4,22 @@
 package datacontainers;
 
 import datamodels.Classroom;
+
 import java.util.ArrayList;
+import java.util.List;
 
 public class ClassroomDC {
 
-    private ArrayList<Classroom> listOfClassrooms = new ArrayList<>();
+    private List<Classroom> classrooms = new ArrayList<>();
 
     public ClassroomDC(){ }
 
-    public ArrayList<Classroom> getListOfClassrooms() {
-        return listOfClassrooms;
+    public List<Classroom> getListOfClassrooms() {
+        return classrooms;
     }
 
-    public void setListOfClassrooms(ArrayList<Classroom> listOfClassrooms) {
-        this.listOfClassrooms = listOfClassrooms;
+    public void setListOfClassrooms(List<Classroom> listOfClassrooms) {
+        this.classrooms = listOfClassrooms;
     }
 
 }

@@ -4,14 +4,37 @@
  */
 package controllers;
 
+import utilities.ConsoleLogger;
+import javax.swing.*;
+
 public class Application {
 
     public static void main(String[] args) {
+        String fileLocation = "./";
 
-        // Create main menu controller, the controller creates the menu form
-        MainMenuController controller = new MainMenuController();
+        if (args.length == 0) {
 
-        // Retrieve the main menu form from the controller and make it visible
-        controller.getMainMenu().setVisible(true);
+            ConsoleLogger.fileLocation(fileLocation);
+
+            // Create main menu controller, the controller creates the menu form
+            MainMenuController controller = new MainMenuController(fileLocation);
+
+            // Retrieve the main menu form from the controller and make it visible
+            controller.getMainMenu().setVisible(true);
+        }
+        else {
+            ConsoleLogger.fileLocation(fileLocation);
+
+            // Create main menu controller, the controller creates the menu form
+            MainMenuController controller = new MainMenuController(fileLocation);
+
+            // Retrieve the main menu form from the controller and make it visible
+            controller.getMainMenu().setVisible(true);
+
+            JOptionPane.showMessageDialog(controller.getMainMenu(), "Invalid number of arguments", "Error", JOptionPane.ERROR_MESSAGE);
+            System.exit(0);
+            
+        }
+
     }
 }

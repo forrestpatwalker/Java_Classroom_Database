@@ -6,17 +6,20 @@
  */
 package controllers;
 
+import datacontainers.CourseDC;
+import datacontainers.StudentDC;
 import datamodels.Student;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import datacontainers.*;
 import exceptionhandlers.ErrorPopup;
 import exceptionhandlers.InvalidDataException;
+import exceptionhandlers.MissingDataException;
+import utilities.ConsoleLogger;
+import view.inputforms.StudentInputForm;
+
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.time.LocalDate;
 import java.time.Month;
-
-import exceptionhandlers.MissingDataException;
-import view.inputforms.StudentInputForm;
+import java.util.logging.Level;
 
 public class InputStudentFormController implements ActionListener {
 
@@ -77,7 +80,9 @@ public class InputStudentFormController implements ActionListener {
                 String gpastring = form.getGpaField().getText();
                 float gpadouble = Float.parseFloat(gpastring);
                 newStudent.setGPA(gpadouble);
+                ConsoleLogger.log(Level.INFO,"Converted GPA to a double");
             } catch (NumberFormatException exp) {
+                ConsoleLogger.log(Level.WARNING, InputStudentFormController.class.getName());
                 newStudent.setGPA(0);
             }
 
@@ -92,7 +97,9 @@ public class InputStudentFormController implements ActionListener {
 
             // Store
             this.studentDC.getListOfStudents().add(newStudent);
+            ConsoleLogger.log(Level.INFO,"Student Data Saved");
         } catch (InvalidDataException | MissingDataException exception){
+            ConsoleLogger.log(Level.WARNING, InputStudentFormController.class.getName());
             ErrorPopup error = new ErrorPopup(form, exception);
         }
 

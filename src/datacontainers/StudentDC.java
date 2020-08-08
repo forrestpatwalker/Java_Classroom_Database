@@ -1,17 +1,19 @@
 package datacontainers;
 
 import datamodels.Student;
+
 import java.util.ArrayList;
+import java.util.List;
 
 public class StudentDC {
 
-    private ArrayList<Student> listOfStudents = new ArrayList<>();
+    private List<Student> students = new ArrayList<>();
 
     public StudentDC() { }
 
-    public ArrayList<Student> getListOfStudents() { return listOfStudents; }
+    public List<Student> getListOfStudents() { return students; }
 
-    public void setListOfCourses(ArrayList<Student> listOfStudents) {
-        this.listOfStudents = listOfStudents;
+    public void setListOfStudents(List<Student> listOfStudents) {
+        this.students = listOfStudents;
     }
 }

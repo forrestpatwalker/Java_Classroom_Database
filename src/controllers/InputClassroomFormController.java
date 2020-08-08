@@ -6,14 +6,18 @@
  */
 package controllers;
 
-import datamodels.Classroom;
-import java.awt.event.ActionListener;
-import javax.swing.ComboBoxModel;
-import view.inputforms.ClassroomInputForm;
 import datacontainers.ClassroomDC;
+import datamodels.Classroom;
 import exceptionhandlers.ErrorPopup;
 import exceptionhandlers.InvalidDataException;
 import exceptionhandlers.MissingDataException;
+import utilities.ConsoleLogger;
+import view.inputforms.ClassroomInputForm;
+
+import javax.swing.*;
+import java.awt.event.ActionListener;
+import java.util.logging.Level;
+
 
 public class InputClassroomFormController implements ActionListener {
 
@@ -64,6 +68,14 @@ public class InputClassroomFormController implements ActionListener {
             // Retrieve the room number from the form
             String roomNumber = form.getRoomNumberTextfield().getText();
 
+            if (isEmpty(roomNumber)) {
+                throw new InvalidDataException("Missing Data!");
+            }
+
+            if (!isValid(roomNumber)) {
+                throw new InvalidDataException("Invalid Data!");
+            }
+
             // If the room number is valid, store it in the classroom object
             aClassroom.setRoomNumber(roomNumber);
 
@@ -77,20 +89,20 @@ public class InputClassroomFormController implements ActionListener {
             String roomType = (String) selectedItem;
             // Store the room type
             aClassroom.setTypeOfRoom(roomType);
+
             // set capacity
-            try {
-                aClassroom.setCapacity(form.getRoomCapacityTextField().getText());
-            } catch(NumberFormatException exception){
-                aClassroom.setCapacity(0);
-            }
-            
+            aClassroom.setCapacity(form.getRoomCapacityTextField().getText());
+
             // Add the new classroom to the list in ClassroomDataModel
             m_classroomDataContainer.getListOfClassrooms().add(aClassroom);
+
+            ConsoleLogger.log(Level.INFO,"Classroom Data Saved");
 
         } catch (InvalidDataException | MissingDataException exception) {
             // Invalid data was found, 
             // No classroom will be saved,
             // create an error popup
+            ConsoleLogger.log(Level.WARNING, InputClassroomFormController.class.getName());
             ErrorPopup error = new ErrorPopup(form, exception);
         }
     }
@@ -117,5 +129,40 @@ public class InputClassroomFormController implements ActionListener {
 
     public ClassroomInputForm getForm() {
         return form;
-    }   
+    }
+
+    /**
+     * Uses the isEmpty method from the String class to test whether the method
+     * argument is empty. Notice that there is really no value added to have
+     * a private helper method for isEmpty but I put it in for consistency
+     *
+     * @param data
+     * @return
+     */
+    private boolean isEmpty(String data) {
+        if (data.isEmpty()) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    /**
+     * Uses a regular expression (regex) to compare the format of the data
+     * argument
+     *
+     * ^[a-zA-Z]{2}[0-9]{3}$ will compare the first 2 characters to a-z and A-Z
+     * and the last 3 characters to numerics
+     *
+     * @param data
+     * @return
+     */
+    private boolean isValid(String data) {
+
+        if (data.matches("^[a-zA-Z]{2}[0-9]{3}$")) {
+            return true;
+        } else {
+            return false;
+        }
+    }
 }

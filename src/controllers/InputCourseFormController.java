@@ -14,8 +14,6 @@
  */
 package controllers;
 
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import datacontainers.ClassroomDC;
 import datacontainers.CourseDC;
 import datamodels.Classroom;
@@ -23,8 +21,13 @@ import datamodels.Course;
 import exceptionhandlers.ErrorPopup;
 import exceptionhandlers.InvalidDataException;
 import exceptionhandlers.MissingDataException;
-import interfaces.ICourse;
+import utilities.ConsoleLogger;
 import view.inputforms.CourseInputForm;
+
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.io.IOException;
+import java.util.logging.Level;
 
 public class InputCourseFormController implements ActionListener {
 
@@ -105,7 +108,9 @@ public class InputCourseFormController implements ActionListener {
 
             // Store the object in the application data model list of courses
             this.CourseDC.getListOfCourses().add(newCourse);
-        } catch (InvalidDataException | MissingDataException exception){
+            ConsoleLogger.log(Level.INFO,"Course Data Saved");
+        } catch (InvalidDataException | MissingDataException | IOException exception){
+            ConsoleLogger.log(Level.WARNING, InputCourseFormController.class.getName());
             ErrorPopup error = new ErrorPopup(form, exception);
         }
 

@@ -1,19 +1,13 @@
 package view.reportforms;
 
-import datamodels.Student;
 import controllers.ReportStudentController;
-import java.awt.BorderLayout;
-import java.awt.Dimension;
-import java.util.ArrayList;
-import javax.swing.JButton;
-import javax.swing.JFrame;
-import javax.swing.JScrollPane;
-import javax.swing.JSplitPane;
-import javax.swing.JTextArea;
-import javax.swing.JTree;
-import javax.swing.WindowConstants;
+import datamodels.Student;
+
+import javax.swing.*;
 import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.TreeSelectionModel;
+import java.awt.*;
+import java.util.List;
 
 /**
  * This class contains all the code for the student report form. It creates the
@@ -64,7 +58,7 @@ public class StudentReportForm extends JFrame {
 
         // Once the form is initialized, retrieve the data from the passed in
         // data model
-        ArrayList<Student> listOfStudents = controller.getDC().getListOfStudents();
+        List<Student> listOfStudents = controller.getDC().getListOfStudents();
 
         // Call private method that will add all students to the tree
         this.populateTree(listOfStudents);
@@ -77,7 +71,7 @@ public class StudentReportForm extends JFrame {
 
     }
 
-    private void populateTree(ArrayList<Student> listOfStudents) {
+    private void populateTree(List<Student> listOfStudents) {
 
         // Add all students to the tree
         for (Student astudent : listOfStudents) {

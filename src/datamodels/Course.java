@@ -1,25 +1,28 @@
 package datamodels;
 
-import exceptionhandlers.MissingDataException;
 import exceptionhandlers.InvalidDataException;
-import interfaces.IClassroom;
-import interfaces.ICourse;
+import exceptionhandlers.MissingDataException;
+import utilities.ConsoleLogger;
 
-import java.util.Objects;
+import java.io.IOException;
+import java.util.logging.Level;
 
-
-public class Course implements ICourse{
+public class Course {
 
     private String courseID;
     private String courseName;
-    private IClassroom classroom;
+    private Classroom classroom;
+
+
 
     public void setCourseID(String p_courseID) throws InvalidDataException, MissingDataException {
 
         if (p_courseID.isEmpty()){
+            ConsoleLogger.log(Level.WARNING, Course.class.getName());
             throw new MissingDataException("Course ID required");
         }
         if (!p_courseID.matches("^[a-zA-Z]{4}[0-9]{3}$")){
+            ConsoleLogger.log(Level.WARNING, Course.class.getName());
             throw new InvalidDataException("Invalid Course ID");
         }
         this.courseID = p_courseID.substring(0, 4).toUpperCase() +
@@ -29,20 +32,26 @@ public class Course implements ICourse{
     public void setCourseName(String p_courseName) throws MissingDataException{
 
         if (p_courseName.isEmpty()){
+            ConsoleLogger.log(Level.WARNING, Course.class.getName());
             throw new MissingDataException("Course name required");
         }
         this.courseName = p_courseName;
     }
 
-    public void setClassroom(IClassroom p_classroom) throws MissingDataException {
-        this.classroom = Objects.requireNonNullElseGet(p_classroom, Classroom::new);
+    public void setClassroom(Classroom p_classroom) throws MissingDataException, IOException {
+        if (p_classroom == null){
+            this.classroom = new Classroom();
+        }
+        else {
+            this.classroom = p_classroom;
+        }
     }
 
     public String getCourseID() { return courseID; }
 
     public String getCourseName() { return courseName; }
 
-    public IClassroom getClassroom() { return classroom; }
+    public Classroom getClassroom() { return classroom; }
 
     @Override
     public String toString() {

@@ -22,6 +22,8 @@ public class MainMenu extends javax.swing.JFrame {
     private javax.swing.JMenuItem addStudent = new javax.swing.JMenuItem("Add Student");
     private javax.swing.JMenuItem listStudents = new javax.swing.JMenuItem("List Students");
     private javax.swing.JMenuItem exitApplication = new javax.swing.JMenuItem("Exit");
+    private javax.swing.JMenuItem saveData = new javax.swing.JMenuItem("Save Data");
+    private javax.swing.JMenuItem loadData = new javax.swing.JMenuItem("Load Data");
 
     // Menu bar that contains the top level menu options
     private javax.swing.JMenuBar menuBar = new javax.swing.JMenuBar();
@@ -39,6 +41,8 @@ public class MainMenu extends javax.swing.JFrame {
         menuBar.add(studentMenuOption);
 
         // Add the sub menu items
+        fileMenuOption.add(saveData);
+        fileMenuOption.add(loadData);
         fileMenuOption.add(exitApplication);
         classroomMenuOption.add(addClassroom);
         classroomMenuOption.add(listClassrooms);
@@ -48,6 +52,8 @@ public class MainMenu extends javax.swing.JFrame {
         facultyMenuOption.add(listFaculty);
         studentMenuOption.add(addStudent);
         studentMenuOption.add(listStudents);
+        saveData.addActionListener(controller);
+        loadData.addActionListener(controller);
 
         // Link the menu bar to the form
         setJMenuBar(menuBar);
@@ -62,6 +68,8 @@ public class MainMenu extends javax.swing.JFrame {
         listFaculty.addActionListener(controller);
         addStudent.addActionListener(controller);
         listStudents.addActionListener(controller);
+        saveData.addActionListener(controller);
+        loadData.addActionListener(controller);
 
         /**
          * set close function to dispose of the form
@@ -69,9 +77,9 @@ public class MainMenu extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         // Set Size of form after creating
-        setSize(400, 150);
+        setSize(600, 600);
+
 
     }
 
 }
-

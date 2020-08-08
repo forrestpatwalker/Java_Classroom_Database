@@ -5,15 +5,11 @@
 package view.inputforms;
 
 import controllers.InputCourseFormController;
-import datamodels.*;
-import java.util.ArrayList;
-import javax.swing.DefaultListModel;
-import javax.swing.JButton;
-import javax.swing.JLabel;
-import javax.swing.JList;
-import javax.swing.JScrollPane;
-import javax.swing.JTextField;
-import datacontainers.*;
+import datacontainers.ClassroomDC;
+import datamodels.Classroom;
+
+import javax.swing.*;
+import java.util.List;
 
 public class CourseInputForm extends javax.swing.JFrame {
 
@@ -70,7 +66,7 @@ public class CourseInputForm extends javax.swing.JFrame {
         listOfClassroomsScrollablePanel.setBounds(10, 180, 450, 170);
 
         ClassroomDC listOfClassesDataModel = controller.getClassroomDC();
-        ArrayList<Classroom> listOfClassrooms = listOfClassesDataModel.getListOfClassrooms();
+        List<Classroom> listOfClassrooms = listOfClassesDataModel.getListOfClassrooms();
 
         for (int i = 0; i < listOfClassrooms.size(); i++) {
             dropdownListDataModel.addElement(listOfClassrooms.get(i));

@@ -6,20 +6,19 @@
  */
 package controllers;
 
-import datamodels.Faculty;
 import datacontainers.CourseDC;
 import datacontainers.FacultyDC;
 import datamodels.Faculty;
 import exceptionhandlers.ErrorPopup;
 import exceptionhandlers.InvalidDataException;
+import exceptionhandlers.MissingDataException;
+import utilities.ConsoleLogger;
+import view.inputforms.FacultyInputForm;
+
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.GregorianCalendar;
-
-import exceptionhandlers.MissingDataException;
-import view.inputforms.FacultyInputForm;
+import java.util.logging.Level;
 
 public class InputFacultyFormController implements ActionListener {
 
@@ -76,7 +75,9 @@ public class InputFacultyFormController implements ActionListener {
 
             try {
                 salarydouble = Double.parseDouble(salarystring);
+                ConsoleLogger.log(Level.INFO, "Converted salary from string to double");
             } catch (NumberFormatException exception){
+                ConsoleLogger.log(Level.WARNING, InputFacultyFormController.class.getName());
                 salarydouble = 0.0;
             }
             newFaculty.setSalary(salarydouble);
@@ -107,7 +108,9 @@ public class InputFacultyFormController implements ActionListener {
 
             // Store the object in the application data model
             this.facultyDC.getListOfFaculty().add(newFaculty);
+            ConsoleLogger.log(Level.INFO,"Faculty Data Saved");
         } catch (MissingDataException | InvalidDataException exception){
+            ConsoleLogger.log(Level.WARNING, InputFacultyFormController.class.getName());
             ErrorPopup error = new ErrorPopup(form, exception);
         }
 

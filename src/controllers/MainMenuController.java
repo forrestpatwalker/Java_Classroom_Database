@@ -9,17 +9,34 @@ import datacontainers.ClassroomDC;
 import datacontainers.CourseDC;
 import datacontainers.FacultyDC;
 import datacontainers.StudentDC;
-import java.awt.event.ActionListener;
+import utilities.ClassroomIO;
+import utilities.CourseIO;
+import utilities.FacultyIO;
+import utilities.StudentIO;
 import view.MainMenu;
 
+import java.awt.event.ActionListener;
+
 public class MainMenuController implements ActionListener {
+
+    // File location
+    String fileLocation;
+
+    /**
+     * Constructor
+     * @param fileLocation
+     */
+    public MainMenuController(String fileLocation) {
+        this.fileLocation = fileLocation;
+    }
 
     // The data models are instantiated here and passed to the
     // constructors for the controllers
     ClassroomDC classroomDC = new ClassroomDC();
-    CourseDC courseDC = new CourseDC();
-    StudentDC studentDC = new StudentDC();
+    CourseDC  courseDC = new CourseDC();
     FacultyDC facultyDC = new FacultyDC();
+    StudentDC studentDC = new StudentDC();
+
 
     // The main menu form gets created here. Notice it takes this controller object
     // as an argument to the constructor
@@ -29,6 +46,7 @@ public class MainMenuController implements ActionListener {
      * The ActionListener interface contains a single method, actionPerformed
      */
     public void actionPerformed(java.awt.event.ActionEvent event) {
+
         //  Figure out which button was clicked
         String menuItemClicked = event.getActionCommand();
 
@@ -52,7 +70,18 @@ public class MainMenuController implements ActionListener {
             ReportStudentController reportController = new ReportStudentController(studentDC);
         } else if (menuItemClicked.equals("Exit")) {
             System.exit(0);
+        } else if (menuItemClicked.equals("Save Data")) {
+            ClassroomIO.writeJSONFile(fileLocation, classroomDC);
+            CourseIO.writeJSONFile(fileLocation, courseDC);
+            FacultyIO.writeJSONFile(fileLocation, facultyDC);
+            StudentIO.writeJSONFile(fileLocation, studentDC);
+        } else if (menuItemClicked.equals("Load Data")) {
+            classroomDC.setListOfClassrooms(ClassroomIO.readJSONFile(fileLocation));
+            courseDC.setListOfCourses(CourseIO.readJSONFile(fileLocation));
+            facultyDC.setListOfFaculty(FacultyIO.readJSONFile(fileLocation));
+            studentDC.setListOfStudents(StudentIO.readJSONFile(fileLocation));
         }
+
     }
 
     // Getter used in the Application.java class
@@ -60,4 +89,3 @@ public class MainMenuController implements ActionListener {
         return mainMenu;
     }
 }
-

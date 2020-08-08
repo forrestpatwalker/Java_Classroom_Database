@@ -1,19 +1,19 @@
 package datacontainers;
 
-import interfaces.ICourse;
+import datamodels.Course;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class CourseDC {
 
-    private List<ICourse> listOfCourses = new ArrayList<>();
+    private List<Course> courses = new ArrayList<>();
 
     public CourseDC(){ }
 
-    public List<ICourse> getListOfCourses() { return listOfCourses; }
+    public List<Course> getListOfCourses() { return courses; }
 
-    public void setListOfCourses(List<ICourse> listOfCourses) {
-        this.listOfCourses = listOfCourses;
+    public void setListOfCourses(List<Course> listOfCourses) {
+        this.courses = listOfCourses;
     }
 }

@@ -7,13 +7,13 @@
  */
 package controllers;
 
+import datacontainers.CourseDC;
 import datamodels.Course;
+import view.reportforms.CourseReportForm;
+
+import javax.swing.table.DefaultTableModel;
 import java.awt.event.ActionListener;
 import java.util.Vector;
-import javax.swing.table.DefaultTableModel;
-import datacontainers.CourseDC;
-import interfaces.ICourse;
-import view.reportforms.CourseReportForm;
 
 public class ReportCourseController implements ActionListener {
 
@@ -61,7 +61,7 @@ public class ReportCourseController implements ActionListener {
 
         // Loop through the list and add the courses to the text area,
         // Each time adding a cr/lf between items for readibility.
-        for (ICourse aCourse : CourseDC.getListOfCourses()) {
+        for (Course aCourse : CourseDC.getListOfCourses()) {
             String courseId = aCourse.getCourseID();
             String courseName = aCourse.getCourseName();
             allCoursesText += courseId;
@@ -92,7 +92,7 @@ public class ReportCourseController implements ActionListener {
         this.form.getTableOfAvailableCourses().setModel(defaultTableModel);
 
         // Add the courses to the table model
-        for (ICourse aCourse : CourseDC.getListOfCourses()) {
+        for (Course aCourse : CourseDC.getListOfCourses()) {
 
             // Create a vector that is one row in the table
             Vector aCourseForTable = new Vector();

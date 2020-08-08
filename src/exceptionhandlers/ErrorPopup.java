@@ -19,4 +19,8 @@ public class ErrorPopup {
                 "Invalid Data",
                 JOptionPane.WARNING_MESSAGE);
     }
+
+    public ErrorPopup() {
+
+    }
 }
